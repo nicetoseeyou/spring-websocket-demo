@@ -28,7 +28,7 @@
         </RollingRandomAccessFile>
     </Appenders>
     <Loggers>
-        <logger name="org.springframework" level="info"/>
+        <logger name="org.springframework" level="warn"/>
         <logger name="lab.nice.websocket.demo" level="info" includeLocation="true" additivity="false">
             <appender-ref ref="ErrorLog"/>
             <appender-ref ref="Console"/>

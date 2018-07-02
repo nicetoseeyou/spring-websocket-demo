@@ -24,7 +24,7 @@
         stompClient.connect({}, function(frame) {
             setConnected(true);
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/real', function(greeting){
+            stompClient.subscribe('/topic/kafkaMetrics', function(greeting){
                 showGreeting(greeting.body);
             });
         });
@@ -38,10 +38,15 @@
         }
     }
 
-    function sendNum() {
-        var first = $("#first").val();
-        var second = $("#second").val();
-        stompClient.send("/app/hello", {}, JSON.stringify({ 'first': first, 'second': second }));
+    function mock() {
+        $.ajax({
+            type: 'POST',
+            url: ctx+"/metrics/mock",
+            async:true,
+            success:function(result){
+        	    console.log(result);
+        	}
+        });
     }
 
     function showGreeting(message) {
@@ -62,11 +67,7 @@
         <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
     </div>
     <div id="conversationDiv">
-        <label>Number One:</label>
-        <input type="number" id="first" /><br/>
-        <label>Number Two:</label>
-        <input type="number" id="second" /><br/><br/>
-        <button id="sendNum" onclick="sendNum();">Send</button>
+        <button id="mock" onclick="mock();">Send</button>
         <p id="response"></p>
     </div>
 </div>
