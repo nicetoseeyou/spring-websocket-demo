@@ -21,9 +21,9 @@
     function connect() {
         var socket = new SockJS('/demo/stomp');
         stompClient = Stomp.over(socket);
+        stompClient.debug = () => {};
         stompClient.connect({}, function(frame) {
             setConnected(true);
-            console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/kafkaMetrics', function(greeting){
                 showGreeting(greeting.body);
             });
@@ -44,17 +44,14 @@
             url: ctx+"/metrics/mock",
             async:true,
             success:function(result){
-        	    console.log(result);
+        	    console.log("success");
         	}
         });
     }
 
     function showGreeting(message) {
         var response = $("#response");
-        var p = $("<p>");
-        p.css("word-wrap", "break-word");
-        p.text(message);
-        response.append(p);
+        response.text(message);
     }
 </script>
 </head>

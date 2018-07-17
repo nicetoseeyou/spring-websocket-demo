@@ -1,8 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:websocket="http://www.springframework.org/schema/websocket"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
@@ -10,16 +8,11 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/websocket
-        http://www.springframework.org/schema/websocket/spring-websocket.xsd
-        http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <mvc:annotation-driven/>
 
-    <aop:aspectj-autoproxy/>
-    <context:component-scan base-package="lab.nice.websocket.demo">
+    <context:component-scan base-package="lab.nice.websocket.demo" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -38,12 +31,5 @@
             </mvc:resolvers>
         </mvc:resource-chain>
     </mvc:resources>
-
-    <websocket:message-broker application-destination-prefix="/app">
-        <websocket:stomp-endpoint path="/stomp">
-            <websocket:sockjs message-cache-size="1000"/>
-        </websocket:stomp-endpoint>
-        <websocket:simple-broker prefix="/topic, /queue"/>
-    </websocket:message-broker>
 
 </beans>
